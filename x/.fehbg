@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-fill '/home/skhan/Downloads/images/usr/share/backgrounds/arcolinux/time-abstract.jpg' 
