@@ -117,7 +117,7 @@ NVM_LAZY=1
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git archlinux zsh-completions zsh-autosuggestions  bgnotify )
+plugins=(git archlinux zsh-completions zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -198,3 +198,7 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 export PATH=$PATH:~/.local/bin/
 
 export JUPYTERLAB_DIR=$HOME/.local/share/jupyter/lab
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+source /usr/share/nvm/init-nvm.sh

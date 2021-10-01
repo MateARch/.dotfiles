@@ -46,7 +46,7 @@
 "pamixer --increase 5"
   XF86AudioRaiseVolume
 
-"pulseaudio-ctl mute-input"
+"pamixer mute-input"
   XF86AudioMicMute
 
 "xbacklight -5"

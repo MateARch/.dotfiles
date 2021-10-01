@@ -156,13 +156,14 @@ treesitter_parser_configs.cpp = {
 
 treesitter.setup {
     ensure_installed = 'maintained',
-    highlight = { enable = true },
-    indent = { enable = false },
+    -- highlight = { enable = true, additional_vim_regex_highlighting = true },
 }
 
-vim.opt.foldmethod = 'expr'
-vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-vim.opt.foldlevel = 1
+-- vim.opt.foldmethod = 'expr'
+-- vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+-- vim.opt.foldlevel = 1
+
+vim.opt.foldmethod = 'syntax'
 
 -- LSP
 
