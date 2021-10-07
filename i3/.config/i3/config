@@ -254,5 +254,3 @@ mode "num" {
 bindsym Num_Lock mode "num"
 
 bindsym $mod+slash exec --no-startup-id ~/.config/i3/workspace.rb
-
-exec --no-startup-id  feh --bg-fill ~/Downloads/images/usr/share/backgrounds/arcolinux/time-abstract.jpg

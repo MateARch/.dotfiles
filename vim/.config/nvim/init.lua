@@ -4,10 +4,13 @@ local function t(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
+vim.g.mapleader = t'<Space>'
+vim.g.maplocalleader = t'<Space>'
+
 vim.fn['plug#begin']()
 
 -- Navigation plugins
-vim.cmd [[Plug 'rbgrouleff/bclose.vim']] 
+vim.cmd [[Plug 'rbgrouleff/bclose.vim']]
 vim.cmd [[Plug 'scrooloose/nerdtree']]
 
 -- UI Plugins
@@ -15,8 +18,6 @@ vim.cmd [[Plug 'vim-airline/vim-airline']]
 vim.cmd [[Plug 'vim-airline/vim-airline-themes']]
 vim.cmd [[Plug 'bling/vim-bufferline']]
 vim.cmd [[Plug 'altercation/vim-colors-solarized']]
-vim.cmd [[Plug 'ryanoasis/vim-devicons']]
-vim.cmd [[Plug 'connorholyday/vim-snazzy']]
 
 -- Editor plugins
 vim.cmd [[Plug 'Raimondi/delimitMate']]
@@ -25,8 +26,6 @@ vim.cmd [[Plug 'tpope/vim-sleuth']]
 vim.cmd [[Plug 'airblade/vim-gitgutter']]
 vim.cmd [[Plug 'editorconfig/editorconfig-vim']]
 
-vim.cmd [[Plug 'joom/vim-commentary']]
-
 vim.cmd [[Plug 'junegunn/fzf']]
 vim.cmd [[Plug 'junegunn/fzf.vim']]
 
@@ -34,14 +33,11 @@ vim.cmd [[Plug 'neovim/nvim-lspconfig']]
 vim.cmd [[Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}]]
 vim.cmd [[Plug 'nvim-treesitter/playground']]
 vim.cmd [[Plug 'hrsh7th/nvim-compe']]
-vim.cmd [[Plug 'mfussenegger/nvim-jdtls']]
-
 
 -- Language specific
 --TODO
 vim.cmd [[Plug 'lervag/vimtex', { 'for': 'tex' }]]
 vim.cmd [[Plug 'vim-pandoc/vim-pandoc']]
-vim.cmd [[Plug 'pangloss/vim-javascript']]
 
 -- Note taking
 vim.cmd [[Plug 'lukaszkorecki/workflowish']]
@@ -51,7 +47,6 @@ vim.fn['plug#end']()
 vim.opt.backspace = { 'indent', 'eol', 'start' }
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.encoding='utf-8'
 vim.opt.tabstop = 4
 vim.opt.expandtab = false
 vim.opt.number = true
@@ -61,6 +56,7 @@ vim.opt.title = true
 vim.opt.joinspaces = false
 vim.opt.mouse = 'a'
 vim.opt.laststatus = 2
+
 vim.opt.conceallevel = 2
 vim.opt.list = true
 vim.opt.listchars = {
@@ -71,6 +67,7 @@ vim.opt.listchars = {
 }
 
 vim.opt.undofile = true
+
 vim.opt.autoread = true
 vim.cmd [[autocmd BufEnter,FocusGained * if mode() == 'n' && getcmdwintype() == '' | checktime | endif]]
 
@@ -100,6 +97,7 @@ vim.api.nvim_set_keymap('', '<C-c>', ':23 d<CR>', { noremap = true })
 vim.api.nvim_set_keymap('', '<C-r>', ':16<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'gb', ':w<CR>:!g++ -g -O2 -Wall -Wextra -pedantic -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -Wno-unused-result -Wno-sign-conversion % <CR>', { noremap = true })
 
+
 -- Necessary for terminal buffers not to die
 vim.cmd [[autocmd TermOpen * set bufhidden=hide]]
 
@@ -110,21 +108,16 @@ vim.cmd [[autocmd TermOpen * set bufhidden=hide]]
 vim.g.delimitMate_expand_cr = 1
 vim.cmd [[autocmd FileType tex let b:delimitMate_autoclose = 0]]
 
-vim.o.clipboard = "unnamedplus"
 vim.g.airline_powerline_fonts = 1
 vim.g.bufferline_rotate = 1
 vim.g.bufferline_fixed_index = -1
 vim.g.bufferline_echo = 0
 
---colorscheme
-vim.g.solarized_visibility = 'low'
-vim.opt.background = 'dark'
-vim.cmd [[colorscheme solarized]]
-
---FZF
-vim.g.fzf_command_prefix = 'Fzf'
-vim.api.nvim_set_keymap("n", "<Leader><Space>", "<Cmd>FzfFiles<CR>", { silent=true, noremap=true })
-vim.api.nvim_set_keymap("n", "<Leader>f", "<Cmd>FzfRg<CR>", { silent=true, noremap=true })
+if vim.env.TERM == 'rxvt' or vim.env.TERM == 'termite' or vim.env.TERM == 'alacritty' then
+  vim.g.solarized_visibility = 'low'
+  vim.opt.background = 'dark'
+  vim.cmd [[colorscheme solarized]]
+end
 
 vim.cmd [[highlight! link SignColumn LineNr]]
 
@@ -138,6 +131,11 @@ vim.cmd [[set errorformat^=%-GIn\ file\ included\ %.%#]]
 
 vim.g.NERDAltDelims_c = 1
 
+vim.api.nvim_set_keymap("n", "<Leader>n", "<Cmd>silent! NERDTreeFind<CR><Cmd>NERDTreeFocus<CR>", { silent=true, noremap=true })
+
+vim.g.fzf_command_prefix = 'Fzf'
+vim.api.nvim_set_keymap("n", "<Leader><Space>", "<Cmd>FzfFiles<CR>", { silent=true, noremap=true })
+vim.api.nvim_set_keymap("n", "<Leader>f", "<Cmd>FzfRg<CR>", { silent=true, noremap=true })
 
 -- Treesitter
 
@@ -156,26 +154,25 @@ treesitter_parser_configs.cpp = {
 
 treesitter.setup {
     ensure_installed = 'maintained',
-    -- highlight = { enable = true, additional_vim_regex_highlighting = true },
+    highlight = { enable = true, additional_vim_regex_highlighting = true },
+    --indent = { enable = true },
 }
 
--- vim.opt.foldmethod = 'expr'
--- vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
--- vim.opt.foldlevel = 1
+--vim.opt.foldmethod = 'expr'
+--vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+--vim.opt.foldlevel = 1
 
 vim.opt.foldmethod = 'syntax'
 
 -- LSP
 
 local nvim_lsp = require('lspconfig')
-vim.lsp.diagnostic.get_all()
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     underline = true,
     virtual_text = {
       spacing = 8,
-      severity_limit = 'Error',
     },
     signs = false,
     update_in_insert = false,
@@ -204,23 +201,41 @@ local lsp_on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 
   -- Workspace management
-  buf_set_keymap('n', 'lwa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', 'lwr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', 'lwl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<Leader>lwa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<Leader>lwr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<Leader>lwl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
 
-  buf_set_keymap('n', 'lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', 'lf', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', 'le', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '<Leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', '<Leader>lf', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', '<Leader>le', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', 'lq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', 'lw', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', '<Leader>lq', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
 
+  if client.resolved_capabilities.document_formatting then
+    buf_set_keymap('n', '<Leader>lw', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  end
+  if client.resolved_capabilities.document_range_formatting then
+    buf_set_keymap('v', '<Leader>lw', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
+  end
+
+  if client.resolved_capabilities.document_highlight then
+    vim.cmd [[
+    augroup lsp_document_highlight
+    autocmd! * <buffer>
+    autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+    autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+    ]]
+  end
 end
+
+vim.cmd [[highlight LspReferenceText cterm=bold guibg=LightYellow]]
+vim.cmd [[highlight LspReferenceRead cterm=bold ctermbg=0 guibg=LightYellow]]
+vim.cmd [[highlight LspReferenceWrite cterm=bold ctermbg=0 guibg=LightYellow]]
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "clangd","pylsp" }
+local servers = { "clangd", "tsserver" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = lsp_on_attach,
@@ -230,21 +245,14 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-nvim_lsp.html.setup{}
-nvim_lsp.jsonls.setup{}
-nvim_lsp.tsserver.setup{}
-nvim_lsp.cssls.setup{}
-nvim_lsp.bashls.setup{}
-nvim_lsp.pylsp.setup{}
 -- Completion
 --
 vim.opt.completeopt = { 'menuone', 'noselect' }
 
 require('compe').setup {
-  enabled = true;
-  autocomplete = true;
-  documentation = true;
-  min_length = 1;
+  enabled = true,
+  autocomplete = true,
+  documentation = true,
 
   source = {
     path = true,
@@ -331,4 +339,3 @@ autocmd BufEnter NERD_tree_* | execute 'normal R'
 vim.api.nvim_command([[
 let NERDTreeShowHidden = 1
 ]])
-
