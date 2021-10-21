@@ -2,6 +2,6 @@
 dunst &
 #pasystray &
 nm-applet &
-#blueman-applet &
+blueman-applet &
 #xxkb &
 #parcellite &

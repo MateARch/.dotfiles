@@ -56,6 +56,7 @@ vim.opt.title = true
 vim.opt.joinspaces = false
 vim.opt.mouse = 'a'
 vim.opt.laststatus = 2
+vim.o.clipboard = "unnamedplus"
 
 vim.opt.conceallevel = 2
 vim.opt.list = true
