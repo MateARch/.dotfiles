@@ -201,4 +201,3 @@ export JUPYTERLAB_DIR=$HOME/.local/share/jupyter/lab
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
-source /usr/share/nvm/init-nvm.sh
