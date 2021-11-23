@@ -14,13 +14,10 @@ function makeclear {
     sudo pacman -Qttdq | sudo pacman -Rns -
 }
 
-function gotoC {
-  cd ./DSA/DP/MinStepToOne/
+function gotocontest {
+  cd ./Programming/Contest/
 }
 
-function gotoP {
-  cd ./Web/Rest_api
-}
 
 function mkcd {
     if [ ! -n $1 ]

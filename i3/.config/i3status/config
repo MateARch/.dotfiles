@@ -13,9 +13,10 @@ general {
 
 order += "disk /"
 #order += "ipv6"
+order += "run_watch DHCP"
 order += "run_watch VPN"
 order += "wireless _first_"
-#order += "ethernet _first_"
+order += "ethernet _first_"
 order += "battery all"
 order += "volume master" # To get the output of the volume change in status
 order += "load"
@@ -27,7 +28,7 @@ volume master {
         device = "pulse"
 }
 wireless _first_ {
-        format_up = "W (%quality at %essid)"
+        format_up = "W (%quality at %essid) %ip"
         format_down = "W down"
 }
 
@@ -37,16 +38,16 @@ ethernet _first_ {
 }
 
 battery all {
-        format = "%status %percentage"
+        format = "%status %percentage %remaining"
         last_full_capacity = true
 }
 
 disk "/" {
-        format = ": %avail"
+        format = "/: %avail"
 }
 
 load {
-        format = "  %1min"
+        format = "%1min"
 }
 
 memory {
@@ -56,7 +57,7 @@ memory {
 }
 
 tztime local {
-        format = "  %A %d-%m-%Y %l:%M:%S"
+        format = "%A %d-%m-%Y %l:%M:%S"
 }
 
 run_watch VPN {

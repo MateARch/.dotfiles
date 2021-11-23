@@ -231,7 +231,6 @@ bar {
 			inactive_workspace $baseA3 $baseA3 $baseB1
 			urgent_workspace   $red $red $baseB3
         }
-        separator_symbol " "
         status_command i3status -c ~/.config/i3status/config
 #       font pango:Fira Mono for Powerline, FontAwesome 9
 #       font pango:Operator Mono Book, FontAwesome 10
